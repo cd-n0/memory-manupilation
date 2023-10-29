@@ -17,10 +17,9 @@ int ft_check_args(int argc, char **argv) {
     return 0;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     /* Check arguments for bad input */
     /*ft_check_args(argc, argv);*/
-    argc = argc;
 
     int fd;
     char file[BUFFER_SIZE];
@@ -47,7 +46,6 @@ int main(int argc, char *argv[]) {
     /* Open the virtual file mem, that is a view of that process' entire address space, including unmapped regions */
     sprintf(file, "/proc/%ld/mem", pid);
     if ((fd = open(file, O_RDWR)) == -1) {
-        printf("Usage: %s <pidof dummy> <address of the integer pointer>", argv[0]);
         perror("open");
         return EXIT_FAILURE;
     }
@@ -57,7 +55,6 @@ int main(int argc, char *argv[]) {
 
     /* Wait for the process */
     if (waitpid(pid, NULL, 0) == -1) {
-        printf("Usage: %s <pidof dummy> <address of the integer pointer>", argv[0]);
         perror("waitpid");
         ptrace(PTRACE_DETACH, pid, NULL, NULL);
         return EXIT_FAILURE;
