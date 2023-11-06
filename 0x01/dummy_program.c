@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -9,6 +10,8 @@ int main(void) {
     int *ptr2int = &varInt;
     int **ptr2ptr = &ptr2int;
     int ***ptr2ptr2ptr = &ptr2ptr;
+    char *c = malloc(sizeof(char));
+    *c = 'a';
 
     size_t i = 1;
     char entry = 0;
@@ -21,9 +24,13 @@ int main(void) {
         printf("ptr2int\t\t(%p) = %p\n", &ptr2int, ptr2int);
         printf("ptr2ptr\t\t(%p) = %p\n", &ptr2ptr, ptr2ptr);
         printf("ptr2ptr2ptr\t(%p) = %p\n", &ptr2ptr2ptr, ptr2ptr2ptr);
+        printf("\n\n");
+        printf("c\t(%p) = %p\n", &c, c);
+        printf("*c\t(%p) = %c\n", c, *c);
         printf("\n\nPress RETURN to print again, enter q or Q to quit\n");
         i++;
         entry = getchar();
     }
+    free(c);
     return 0;
 }
