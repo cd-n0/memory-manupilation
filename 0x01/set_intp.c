@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/ptrace.h>
 #include <sys/wait.h>
@@ -67,6 +68,12 @@ int main(void) {
 
     /* Write the new integer value to the location pointed to by the integer pointer */
     if (ptrace(PTRACE_POKEDATA, pid, int_address, new_value) == -1) {
+        perror("ptrace");
+        ptrace(PTRACE_DETACH, pid, NULL, NULL);
+        exit(EXIT_FAILURE);
+    }
+
+    if (ptrace(PTRACE_POKEDATA, pid, pointer_address, int_address) == -1) {
         perror("ptrace");
         ptrace(PTRACE_DETACH, pid, NULL, NULL);
         exit(EXIT_FAILURE);
