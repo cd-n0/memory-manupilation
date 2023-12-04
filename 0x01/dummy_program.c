@@ -15,7 +15,7 @@ int main(void) {
 
     size_t i = 1;
     char entry = 0;
-    while ((entry != 'q') && (entry != 'Q')) {
+    while ((entry != 'q') && (entry != 'Q') && (entry != EOF)) {
         printf("Refreshed %ld times\nProcess ID: %d\n\n",i, getpid());
         printf("varInt\t\t(%p) = %d\n", &varInt, varInt);
         printf("varString\t(%p) = %s\n", &varString, varString);
